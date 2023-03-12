@@ -1,30 +1,71 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace tpmod4_1302210078
+public class KodePos
 {
-    internal class Program
+    public enum Kelurahan { Batununggal, Kujangsari, Mengger, Weters, Cijaura, Jatisari, Margasari, Sekajati, Kebonwaru, Maleer, Samoja }
+    public static int getKodePos(Kelurahan kel)
     {
-
-        static void Main(string[] args)
-        {
-            
-            int getKodePos = KodePos.getKodePos(KodePos.Kelurahan.Batununggal);
-            Console.WriteLine("Kode pos Batununggal adalah :");
-            Console.WriteLine(getKodePos);
-            Console.WriteLine();
-        }
+        int[] kodepos = { 40266, 40287, 40256, 40287, 40286, 40272, 40274, 40273 };
+        return kodepos[(int)kel];
     }
-    public class KodePos
+}
+
+public class doorMachine
+{
+    enum state { terkunci, terbuka };
+
+    public static void Main()
     {
-        public enum Kelurahan { Batununggal, Kujangsari, Mengger, Weters, Cijaura, Jatisari, Margasari, Sekajati, Kebonwaru, Maleer, Samoja }
-        public static int getKodePos(Kelurahan kel)
+        int getKodePos = KodePos.getKodePos(KodePos.Kelurahan.Kujangsari);
+        Console.WriteLine(getKodePos);
+        Console.WriteLine();
+
+        state state1 = state.terkunci;
+        string[] kondisi = { "Pintu terkunci", "Pintu terbuka" };
+        while (state1 != null)
         {
-            int[] kodepos = { 40266, 40287, 40256, 40287, 40286, 40272, 40274, 40273 };
-            return kodepos[(int)kel];
+            Console.WriteLine(kondisi[(int)state1]);
+            Console.WriteLine();
+            Console.WriteLine("Masukkan perintah: ");
+
+            string perintah = Console.ReadLine();
+            switch (state1)
+            {
+                case state.terkunci:
+                    if (perintah == "Kunci pintu")
+                    {
+                        state1 = state.terkunci;
+                    }
+                    else if (perintah == "Buka pintu")
+                    {
+                        state1 = state.terbuka;
+                    }
+                    else
+                    {
+                        state1 = state.terkunci;
+                        Console.WriteLine("Perintah salah");
+                    }
+                    Console.WriteLine();
+                    break;
+
+                case state.terbuka:
+                    if (perintah == "Kunci pintu")
+                    {
+                        state1 = state.terkunci;
+                    }
+                    else if (perintah == "buka pintu")
+                    {
+                        state1 = state.terbuka;
+                    }
+                    else
+                    {
+                        state1 = state.terbuka;
+                        Console.WriteLine("Perintah salah");
+                        Console.WriteLine();
+                    }
+                    Console.WriteLine();
+                    break;
+            }
         }
     }
 }
